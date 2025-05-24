@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>الإعدادات</title>
+  <style>
+    body {
+      font-family: 'Tahoma', sans-serif;
+      background: #fff0ff;
+      margin: 0;
+      padding: 20px;
+      direction: rtl;
+    }
+    h1 {
+      color: #a000c0;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    input[type="text"], select {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      background: #a000c0;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .back-link {
+      display: block;
+      margin-top: 30px;
+      text-align: center;
+      text-decoration: none;
+      color: #a000c0;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>إعدادات الشات</h1>
+
+<label for="usernameInput">تغيير اسم المستخدم</label>
+<input type="text" id="usernameInput" placeholder="اكتب اسمك الجديد" />
+
+<label for="themeSelect">اختيار لون الواجهة</label>
+<select id="themeSelect">
+  <option value="pink">بناتي (زهري)</option>
+  <option value="purple">بنفسجي</option>
+  <option value="blue">أزرق</option>
+  <option value="green">أخضر</option>
+</select>
+
+<label for="notifToggle">تشغيل أصوات الإشعارات</label>
+<select id="notifToggle">
+  <option value="on">تشغيل</option>
+  <option value="off">إيقاف</option>
+</select>
+
+<label for="fontSizeSelect">حجم الخط</label>
+<select id="fontSizeSelect">
+  <option value="14">صغير</option>
+  <option value="16" selected>متوسط</option>
+  <option value="18">كبير</option>
+  <option value="20">كبير جداً</option>
+</select>
+
+<button id="saveBtn">حفظ التغييرات</button>
+
+<a href="chat.html" class="back-link">العودة إلى الشات</a>
+
+<script>
+  // تحميل الإعدادات من localStorage عند فتح الصفحة
+  document.addEventListener('DOMContentLoaded', () => {
+    const storedName = localStorage.getItem('username');
+    const storedTheme = localStorage.getItem('theme') || 'pink';
+    const storedNotif = localStorage.getItem('notif') || 'on';
+    const storedFontSize = localStorage.getItem('fontSize') || '16';
+
+    if (storedName) document.getElementById('usernameInput').value = storedName;
+    document.getElementById('themeSelect').value = storedTheme;
+    document.getElementById('notifToggle').value = storedNotif;
+    document.getElementById('fontSizeSelect').value = storedFontSize;
+  });
+
+  document.getElementById('saveBtn').addEventListener('click', () => {
+    const newName = document.getElementById('usernameInput').value.trim();
+    const newTheme = document.getElementById('themeSelect').value;
+    const newNotif = document.getElementById('notifToggle').value;
+    const newFontSize = document.getElementById('fontSizeSelect').value;
+
+    if (newName === '') {
+      alert('يرجى إدخال اسم مستخدم صالح');
+      return;
+    }
+
+    localStorage.setItem('username', newName);
+    localStorage.setItem('theme', newTheme);
+    localStorage.setItem('notif', newNotif);
+    localStorage.setItem('fontSize', newFontSize);
+
+    alert('تم حفظ الإعدادات!');
+
+    // ممكن تضيف هنا تحديثات للصفحة أو إعادة تحميل حسب الحاجة
+  });
+</script>
+
+</body>
+</html>
